@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#173f3b" />
+    <title>Riff | Gestionale sale prova</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Riff, pagina iniziale">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M8 5v22M8 16h10a6 6 0 0 0 0-12H8m0 12h10a6 6 0 0 1 0 12H8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+          <span>riff<span class="brand-dot">.</span></span>
+        </a>
+
+        <div class="workspace-label">IL TUO SPAZIO</div>
+        <button class="venue-switcher" type="button">
+          <span class="venue-avatar">S</span>
+          <span class="venue-copy"><strong>Sound District</strong><small>Milano · Navigli</small></span>
+          <svg class="chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4"/></svg>
+        </button>
+
+        <div class="nav-label">PRENOTAZIONI</div>
+        <nav class="main-nav" aria-label="Navigazione principale">
+          <button class="nav-item active" type="button" data-view="home" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20H4zM9 20v-6h6v6"/></svg>Prenota una sala</button>
+          <button class="nav-item" type="button" data-view="availability"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16m-9 4 2 2 4-4"/></svg>Disponibilità</button>
+          <button class="nav-item" type="button" data-view="bookings"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v15H5zM8 3v5m8-5v5M8 12h8m-8 4h5"/></svg>Prenotazioni<span class="nav-count" id="bookingNavCount">0</span></button>
+          <button class="nav-item" type="button" data-view="management"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16M8 14h2m4 0h2m-8 3h2"/></svg>Calendario</button>
+        </nav>
+
+        <div class="nav-label rooms-heading" id="sale">SALE ATTIVE <span>03</span></div>
+        <div class="room-list" id="roomFilters"></div>
+        <button class="add-room" type="button" title="Gestione sale non disponibile in questa demo"><span>+</span> Aggiungi sala</button>
+
+        <div class="sidebar-bottom">
+          <div class="support-card"><span class="support-spark">✳</span><strong>Serve una mano?</strong><span>Il nostro team è qui per te.</span><a href="mailto:ciao@riff.it">Contattaci <span>↗</span></a></div>
+          <button class="profile-button" type="button"><span class="profile-avatar">LC</span><span class="profile-copy"><strong>Luca Conti</strong><small>Amministratore</small></span><svg class="more-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+        </div>
+      </aside>
+
+      <main class="main-content" id="calendario">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Sound District</span><span class="breadcrumb-separator">/</span><strong id="viewBreadcrumb">Prenota una sala</strong></div>
+          <div class="topbar-right"><span class="today-label" id="todayLabel"></span><button class="icon-button notification-button" type="button" aria-label="Notifiche"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 13h4"/></svg><span></span></button><span class="topbar-divider"></span><span class="profile-avatar small">LC</span></div>
+        </header>
+
+        <div class="booking-notice" id="bookingNotice" role="status" aria-live="polite" hidden><span class="notice-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></span><span class="notice-copy"><strong id="bookingNoticeTitle">Prenotazione salvata</strong><small id="bookingNoticeDetails"></small></span><button class="notice-view-button" id="bookingNoticeView" type="button">Vedi prenotazioni</button><button class="notice-dismiss" id="dismissBookingNotice" type="button" aria-label="Chiudi conferma">×</button></div>
+
+        <section class="page-content">
+          <section class="view-panel active" id="homeView" aria-labelledby="homeTitle">
+            <div class="booking-hero">
+              <div class="booking-hero-copy"><div class="eyebrow"><span class="live-dot"></span>SOUND DISTRICT · MILANO</div><h1 id="homeTitle">La prossima prova<br />inizia da qui.</h1><p>Scegli la tua sala, trova l'orario giusto e pensa solo alla musica.</p><button class="hero-button" id="startBookingButton" type="button">Scegli giorno e orario <span aria-hidden="true">↗</span></button><span class="hero-reassurance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Zm-3-11 2 2 4-4"/></svg>Rivedi ogni dettaglio prima di confermare</span></div>
+              <div class="hero-note"><span class="hero-note-mark" aria-hidden="true">♫</span><span>Sale attrezzate<br />pronte a suonare</span></div>
+            </div>
+            <div class="portal-actions" aria-label="Azioni prenotazione">
+              <button class="portal-action" id="seeAvailabilityButton" type="button"><span class="portal-action-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 10h16m-9 4 2 2 4-4"/></svg></span><span><strong>Giorni e orari disponibili</strong><small>Trova uno slot libero per la tua band</small></span><span class="portal-arrow" aria-hidden="true">↗</span></button>
+              <button class="portal-action" id="seeBookingsButton" type="button"><span class="portal-action-icon coral"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v15H5zM8 3v5m8-5v5M8 12h8m-8 4h5"/></svg></span><span><strong>Tutte le prenotazioni</strong><small>Controlla le prove già inserite</small></span><span class="portal-arrow" aria-hidden="true">↗</span></button>
+            </div>
+            <div class="section-heading"><div><div class="eyebrow">SCEGLI IL TUO SOUND</div><h2>Le nostre sale</h2></div><button class="text-action" id="roomsAvailabilityButton" type="button">Verifica disponibilità <span aria-hidden="true">→</span></button></div>
+            <div class="booking-rooms" id="bookingRooms"></div>
+          </section>
+
+          <section class="view-panel" id="availabilityView" aria-labelledby="availabilityTitle" hidden>
+            <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span>PRENOTAZIONE ONLINE</div><h1 id="availabilityTitle">Trova il tuo slot</h1><p class="page-subtitle">Seleziona sala, giorno e durata. Ti mostriamo solo gli orari liberi.</p></div></div>
+            <section class="availability-panel">
+              <div class="availability-controls"><label class="availability-field"><span>Sala prove</span><select class="text-input" id="availabilityRoomSelect" aria-label="Sala prove"></select></label><label class="availability-field"><span>Durata sessione</span><select class="text-input" id="availabilityDuration"><option value="1">1 ora</option><option value="2" selected>2 ore</option><option value="3">3 ore</option><option value="4">4 ore</option></select></label><div class="availability-rate" id="availabilityRate"></div></div>
+              <div class="availability-date-toolbar"><div><div class="eyebrow">SCEGLI IL GIORNO</div><h2 id="availabilityRangeLabel"></h2></div><div class="date-nav"><button class="icon-button" id="previousAvailabilityDays" type="button" aria-label="Giorni precedenti"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="icon-button" id="nextAvailabilityDays" type="button" aria-label="Giorni successivi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+              <div class="availability-days" id="availabilityDays" role="group" aria-label="Giorni disponibili"></div>
+              <div class="slots-heading"><div><h2 id="slotsTitle">Orari disponibili</h2><p id="slotsSubtitle"></p></div><span class="slot-duration" id="slotDurationLabel"></span></div>
+              <div class="time-slots" id="timeSlots" aria-live="polite"></div>
+              <p class="availability-footnote">Gli orari sono aggiornati in tempo reale con le prenotazioni presenti.</p>
+            </section>
+          </section>
+
+          <section class="view-panel" id="bookingsView" aria-labelledby="bookingsTitle" hidden>
+            <div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span>STORICO COMPLETO</div><h1 id="bookingsTitle">Tutte le prenotazioni</h1><p class="page-subtitle">Le prove prenotate presso Sound District.</p></div><button class="primary-button" id="bookingsNewButton" type="button"><span class="button-plus">+</span> Prenota una sala</button></div>
+            <section class="bookings-panel"><div class="bookings-toolbar"><span id="bookingsCount"></span><label class="booking-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m16 16 4 4"/></svg><input id="bookingSearch" type="search" placeholder="Cerca band o sala" aria-label="Cerca band o sala" /></label><select class="booking-filter" id="bookingStatusFilter" aria-label="Filtra prenotazioni"><option value="all">Tutti gli stati</option><option value="confirmed">Confermate</option><option value="pending">In attesa</option></select></div><div class="booking-list" id="bookingList"></div></section>
+          </section>
+
+          <section class="view-panel" id="managementView" aria-label="Calendario gestionale">
+          <div class="page-heading">
+            <div><div class="eyebrow"><span class="live-dot"></span>LA TUA SETTIMANA</div><h1>Calendario</h1><p class="page-subtitle">Tieni il ritmo. A tutto il resto pensiamo noi.</p></div>
+            <button class="primary-button" id="newBookingButton" type="button"><span class="button-plus">+</span> Nuova prenotazione</button>
+          </div>
+
+          <section class="stats-row" aria-label="Riepilogo della settimana">
+            <article class="stat-card"><span class="stat-icon stat-icon-lime"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14v15H5zM8 3v5m8-5v5M5 10h14m-9 4h4"/></svg></span><div class="stat-copy"><span>Prenotazioni questa settimana</span><strong id="statBookings">0</strong></div><span class="stat-trend" id="bookingTrend"></span></article>
+            <article class="stat-card"><span class="stat-icon stat-icon-coral"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div class="stat-copy"><span>Ore prenotate</span><strong><span id="statHours">0</span><small> h</small></strong></div><span class="stat-note">questa settimana</span></article>
+            <article class="stat-card"><span class="stat-icon stat-icon-blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19V5m0 14h18M7 15l4-4 3 2 6-7m-1 0h-5m5 0v5"/></svg></span><div class="stat-copy"><span>Incasso previsto</span><strong id="statRevenue">€0</strong></div><span class="stat-note">questa settimana</span></article>
+          </section>
+
+          <section class="calendar-panel" aria-label="Calendario settimanale delle sale">
+            <div class="calendar-toolbar">
+              <div class="week-controls"><div class="date-nav"><button class="icon-button" id="previousWeek" type="button" aria-label="Settimana precedente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="icon-button" id="nextWeek" type="button" aria-label="Settimana successiva"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div><button class="today-button" id="todayButton" type="button">Oggi</button><h2 id="weekTitle"></h2></div>
+              <div class="toolbar-actions"><label class="room-select-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8l8-5 8 5v13M2.5 21h19M9 21v-6h6v6"/></svg><select id="roomSelect" aria-label="Filtra per sala"><option value="all">Tutte le sale</option></select><svg class="select-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m6 8 4 4 4-4"/></svg></label><div class="view-toggle" role="group" aria-label="Vista calendario"><button class="view-option active" id="weekViewButton" type="button" aria-pressed="true">Settimana</button><button class="view-option" id="dayViewButton" type="button" aria-pressed="false">Giorno</button></div></div>
+            </div>
+            <div class="calendar-scroll" id="calendarScroll"><div class="calendar-grid" id="calendarGrid"></div></div>
+            <div class="calendar-footer"><span><i class="legend-dot confirmed"></i>Confermata</span><span><i class="legend-dot pending"></i>In attesa</span><span class="footer-hint">Clicca uno slot libero per prenotare</span></div>
+          </section>
+          <footer class="page-footer"><span>© 2025 Riff gestionale</span><span>Ogni prova merita il suo spazio. <span class="footer-heart">♥</span></span></footer>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="dialogTitle">
+      <form class="booking-form" id="bookingForm">
+        <div class="dialog-header"><div><span class="dialog-eyebrow">SOUND DISTRICT</span><h2 id="dialogTitle">Nuova prenotazione</h2></div><button class="icon-button close-dialog" type="button" aria-label="Chiudi finestra"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 6-12 12M6 6l12 12"/></svg></button></div>
+        <div class="booking-details-step" id="bookingDetailsStep">
+          <input type="hidden" id="bookingId" />
+          <label class="field-label" for="bandName">Nome band o cliente</label><input class="text-input" id="bandName" name="bandName" placeholder="es. The Midnight Echoes" required maxlength="60" />
+          <div class="form-row"><div><label class="field-label" for="bookingRoom">Sala</label><select class="text-input" id="bookingRoom" name="room" required></select></div><div><label class="field-label" for="bookingDate">Data</label><input class="text-input" id="bookingDate" name="date" type="date" required /></div></div>
+          <div class="form-row"><div><label class="field-label" for="bookingStart">Inizio</label><select class="text-input" id="bookingStart" name="start" required></select></div><div><label class="field-label" for="bookingDuration">Durata</label><select class="text-input" id="bookingDuration" name="duration"><option value="1">1 ora</option><option value="2" selected>2 ore</option><option value="3">3 ore</option><option value="4">4 ore</option></select></div></div>
+          <button class="instrument-toggle" id="toggleInstrumentAvailability" type="button" aria-expanded="false" aria-controls="instrumentAvailability"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-5 8 5v12M2 20h20M8 20v-6h8v6M9 10h.01M15 10h.01"/></svg><span>Mostra strumenti disponibili</span><span class="instrument-toggle-arrow" aria-hidden="true">⌄</span></button>
+          <section class="instrument-panel" id="instrumentAvailability" aria-label="Strumenti disponibili" hidden><div class="instrument-panel-heading"><strong id="instrumentRoomLabel">Attrezzatura della sala</strong><span id="instrumentTimeLabel"></span></div><p class="instrument-help">Seleziona gli strumenti da riservare per la tua prova.</p><div class="instrument-list" id="instrumentList"></div></section>
+          <div class="booking-admin-fields" id="bookingAdminFields" hidden><div class="form-row"><div><label class="field-label" for="bookingStatus">Stato</label><select class="text-input" id="bookingStatus" name="status"><option value="confirmed">Confermata</option><option value="pending">In attesa</option></select></div><div><label class="field-label" for="bookingPrice">Importo (€)</label><input class="text-input" id="bookingPrice" name="price" type="number" min="0" step="5" value="40" /></div></div></div>
+        </div>
+        <section class="booking-review-step" id="bookingReviewStep" aria-labelledby="reviewTitle" aria-live="polite" hidden><div class="review-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></div><span class="dialog-eyebrow">UN ULTIMO SGUARDO</span><h3 id="reviewTitle">Controlla la tua prova</h3><p class="review-intro">Verifica i dettagli con calma. Puoi ancora modificarli prima di confermare.</p><div class="review-summary"><div class="review-item"><span>Band</span><strong id="reviewBand"></strong></div><div class="review-item"><span>Sala</span><strong id="reviewRoom"></strong></div><div class="review-item"><span>Quando</span><strong id="reviewDateTime"></strong></div><div class="review-item"><span>Durata</span><strong id="reviewDuration"></strong></div><div class="review-item review-instruments"><span>Strumenti</span><strong id="reviewInstruments"></strong></div><div class="review-item"><span>Stato</span><strong id="reviewStatus" class="review-status"></strong></div><div class="review-total"><span>Totale sessione</span><strong id="reviewPrice"></strong></div></div><p class="review-assurance"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Zm-3-11 2 2 4-4"/></svg>La prenotazione non viene registrata finché non premi conferma.</p></section>
+        <p class="form-error" id="formError" role="alert"></p>
+        <div class="dialog-actions" id="bookingEntryActions"><button class="delete-button" id="deleteBookingButton" type="button" hidden>Elimina</button><span class="action-spacer"></span><button class="secondary-button cancel-dialog" type="button">Annulla</button><button class="primary-button save-booking" id="reviewBookingButton" type="submit">Controlla prenotazione</button></div>
+        <div class="dialog-actions review-actions" id="bookingReviewActions" hidden><button class="secondary-button" id="backToBookingButton" type="button">← Modifica dettagli</button><span class="action-spacer"></span><button class="primary-button" id="confirmBookingButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg>Conferma prenotazione</button></div>
+      </form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
+</html>
